@@ -10,5 +10,6 @@ router.get("/:id", userController.getUser)
 router.get("/", userController.getUsers)
 router.patch("/:id", userController.updateUser)
 router.delete("/:id", userController.deleteUser)
+// router.post("/:projectId/:memberId", userController.addMemberToProject)
 
 module.exports = router

@@ -7,9 +7,11 @@ app.get('/', (req, res) => {
 })
 
 const userRoute = require("./routes/userRoute")
+const projectRoute = require("./routes/projectRoute")
 
 app.use(express.json())
 app.use("/auth", userRoute)
+app.use("/project", projectRoute)
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)

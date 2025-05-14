@@ -12,7 +12,14 @@ exports.register = (username, email, password) => {
         throw new Error("Email already registered, Please login!")
     }
 
-    const user = { id: uuidv4(), username, email, password }
+    const user = {
+        id: uuidv4(),
+        username,
+        email,
+        password,
+        ownedProject: [],
+        participatedProjects: []
+    }
     users.push(user)
     return { ...user }
 }
