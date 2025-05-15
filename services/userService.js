@@ -1,6 +1,6 @@
-const users = [] //database
 const { v4: uuidv4 } = require('uuid');
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
+const { users } = require('../config/database');
 
 exports.register = (username, email, password) => {
     const userName = users.find(user => user.username === username)
@@ -17,7 +17,7 @@ exports.register = (username, email, password) => {
         username,
         email,
         password,
-        ownedProject: [],
+        ownedProjects: [],
         participatedProjects: []
     }
     users.push(user)
