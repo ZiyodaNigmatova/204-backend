@@ -67,3 +67,17 @@ exports.deleteUser = (req, res) => {
         return res.status(500).json({ message: err.message }) // xato bo‘lsa 500
     }
 }
+
+exports.addMemberToProject = (req, res) => {
+    const {projectId, memberId} = req.params
+    const {ownerId} = req.body
+    try{
+        const addmember = userService.addMemberToProject(projectId, memberId, ownerId)
+        if(addmember){
+            res.status(200).json({message : "Successfully added member to project!"})
+        }   
+    }catch(error){
+        res.status(500).json({message : error.message})
+    }
+    
+}

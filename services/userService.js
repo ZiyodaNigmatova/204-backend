@@ -18,7 +18,9 @@ exports.register = (username, email, password) => {
         email,
         password,
         ownedProjects: [],
-        participatedProjects: []
+        participatedProjects: [],
+        created_at: Date(),
+        updated_at: Date()
     }
     users.push(user)
     return { ...user }
@@ -60,7 +62,8 @@ exports.updateUserById = (id, username, email, password) => {
         ...users[userIndex],
         username: username || users[userIndex].username,
         email: email || users[userIndex].email,
-        password: password || users[userIndex].password
+        password: password || users[userIndex].password,
+        update_at: Date()
     }
 
     users[userIndex] = updatedUser
@@ -74,4 +77,27 @@ exports.deleteUserById = (id) => {
     }
     users.splice(userIndex, 1)
     return true
+}
+
+exports.addMemberToProject = (projectId, memberId, ownerId) => {
+    const user = users.find(user => user.id === ownerId)
+    if(!user){
+        throw new Error("Project owner not found!")
+    }
+    const member = users.find(user => user.id === memberId)
+    if(!member){
+        throw new Error("Member not found!")
+    }
+    const project = user.ownedProjects.find(project => project.id === projectId)
+    if(!project){
+        throw new Error("Project not found!")
+    }
+    try{
+        project.members.push({id : memberId})
+        member.participatedProjects.push({project})
+        return true
+    }catch(error){
+        throw new Error("Failed to add member to project")
+    }
+    
 }
